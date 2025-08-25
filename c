@@ -1,0 +1,403 @@
+from IPython.display import display, HTML
+
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Questions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --google-blue: #1a73e8;
+            --google-blue-dark: #174ea6;
+            --google-gray-100: #f1f3f4;
+            --google-gray-600: #80868b;
+            --google-gray-800: #202124;
+            --google-green: #34a853;
+            --google-yellow: #fbbc05;
+            --google-red: #ea4335;
+        }
+
+        body {
+            font-family: 'Google Sans', sans-serif;
+            line-height: 1.6;
+            padding: 24px;
+            background-color: var(--google-gray-100);
+            color: var(--google-gray-800);
+            margin: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+        }
+
+        .unit-section {
+            background-color: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+        }
+
+        .unit-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #dadce0;
+        }
+
+        .unit-number {
+            font-size: 1.125rem;
+            color: var(--google-blue);
+            font-weight: 500;
+        }
+
+        .unit-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--google-gray-800);
+            margin: 4px 0;
+        }
+
+        .unit-description {
+            color: var(--google-gray-600);
+            font-style: italic;
+        }
+
+        .questions-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .question-item {
+            background-color: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .question-item:hover {
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .question-number {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--google-blue-dark);
+        }
+
+        .question-level {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            text-transform: uppercase;
+        }
+
+        .k1 { background-color: var(--google-green); }
+        .k2 { background-color: var(--google-blue); }
+        .k3 { background-color: var(--google-yellow); color: var(--google-gray-800); }
+        .k4 { background-color: var(--google-red); }
+
+        .question-text {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .toggle-solution {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 20px;
+            background-color: var(--google-blue);
+            color: #fff;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .toggle-solution:hover {
+            background-color: var(--google-blue-dark);
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+        }
+
+        .solution {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            background-color: var(--google-gray-100);
+            border-left: 4px solid var(--google-blue);
+            border-radius: 4px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .solution.active {
+            display: block;
+        }
+
+        .solution-label {
+            font-weight: 700;
+            color: var(--google-blue-dark);
+            margin-bottom: 8px;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: var(--google-gray-800);
+        }
+
+        pre {
+            background-color: #e8eaed;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.9rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="unit-section">
+            <div class="unit-header">
+                <div class="unit-number">Unit V</div>
+                <div class="unit-title">Functions & Recursion</div>
+                <div class="unit-description">Function usage, recursion, and parameter passing</div>
+            </div>
+
+            <div class="questions-list">
+
+                <div class="question-item k1">
+                    <div class="question-header">
+                        <span class="question-number">Q73</span>
+                        <span class="question-level k1">K1</span>
+                    </div>
+                    <div class="question-text">What is a function in C programming?</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            A function is a block of code that performs a specific task. It improves modularity, reusability, and readability. Functions may take input (parameters) and return output (return value).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k1">
+                    <div class="question-header">
+                        <span class="question-number">Q74</span>
+                        <span class="question-level k1">K1</span>
+                    </div>
+                    <div class="question-text">Differentiate between built-in and user-defined functions.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <ul>
+                                <li><strong>Built-in functions:</strong> Predefined in libraries (e.g., <code>printf()</code>, <code>scanf()</code>, <code>strlen()</code>).</li>
+                                <li><strong>User-defined functions:</strong> Created by programmers to solve specific problems (e.g., <code>int add(int a, int b)</code>).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k2">
+                    <div class="question-header">
+                        <span class="question-number">Q75</span>
+                        <span class="question-level k2">K2</span>
+                    </div>
+                    <div class="question-text">Explain call by value vs call by reference in C with examples.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <p><strong>Call by Value:</strong> The function receives a copy of the variable's value. Changes made inside the function do not affect the original variable.</p>
+                            <p>Example:</p>
+                            <pre><code>void fun(int x) {<br>    x = 10;<br>}</code></pre>
+                            <p><strong>Call by Reference:</strong> The function receives the memory address of the variable. Changes made using the pointer affect the original variable.</p>
+                            <p>Example:</p>
+                            <pre><code>void fun(int *p) {<br>    *p = 10;<br>}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k3">
+                    <div class="question-header">
+                        <span class="question-number">Q76</span>
+                        <span class="question-level k3">K3</span>
+                    </div>
+                    <div class="question-text">Write a program to find factorial of a number using recursion.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <pre><code>#include &lt;stdio.h&gt;
+int fact(int n) {
+    if (n == 0) return 1;
+    return n * fact(n - 1);
+}
+int main() {
+    int num;
+    printf("Enter number: ");
+    scanf("%d", &num);
+    printf("Factorial = %d\n", fact(num));
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k3">
+                    <div class="question-header">
+                        <span class="question-number">Q77</span>
+                        <span class="question-level k3">K3</span>
+                    </div>
+                    <div class="question-text">Write a recursive program to generate Fibonacci series up to n terms.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <pre><code>#include &lt;stdio.h&gt;
+int fib(int n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
+int main() {
+    int n;
+    printf("Enter terms: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", fib(i));
+    }
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k2">
+                    <div class="question-header">
+                        <span class="question-number">Q78</span>
+                        <span class="question-level k2">K2</span>
+                    </div>
+                    <div class="question-text">What is recursion? State advantages and disadvantages.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <p><strong>Recursion:</strong> A function calling itself until a specific base condition is met. It breaks down a problem into smaller, similar sub-problems.</p>
+                            <p><strong>✅ Advantages:</strong></p>
+                            <ul>
+                                <li>Simplifies code for certain problems (e.g., factorial, Fibonacci, tree traversal).</li>
+                                <li>Can be more intuitive for recursive problem structures.</li>
+                            </ul>
+                            <p><strong>❌ Disadvantages:</strong></p>
+                            <ul>
+                                <li>Higher memory consumption due to the call stack.</li>
+                                <li>Slower execution compared to iterative solutions due to function call overhead.</li>
+                                <li>Risk of a "stack overflow" error if the recursion depth is too large.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k4">
+                    <div class="question-header">
+                        <span class="question-number">Q79</span>
+                        <span class="question-level k4">K4</span>
+                    </div>
+                    <div class="question-text">Analyze differences between iterative and recursive approaches.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <ul>
+                                <li><strong>Iterative:</strong> Uses loops (e.g., `for`, `while`) to repeat a block of code. Generally more memory-efficient (O(1) space) and faster.</li>
+                                <li><strong>Recursive:</strong> Uses function calls to solve a problem. Often simpler to write for certain algorithms but less efficient in terms of memory (O(n) space due to the call stack).</li>
+                            </ul>
+                            <p><strong>Example:</strong> Calculating a factorial. The iterative approach uses a loop and constant memory, while the recursive approach uses the call stack to store intermediate results, consuming memory proportional to the input number.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item k4">
+                    <div class="question-header">
+                        <span class="question-number">Q80</span>
+                        <span class="question-level k4">K4</span>
+                    </div>
+                    <div class="question-text">Discuss scope, lifetime, and storage classes of functions and variables in C.</div>
+                    <button class="toggle-solution" onclick="toggleSolution(this)">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-label">Solution</div>
+                        <div class="solution-text">
+                            <ul>
+                                <li><strong>Scope:</strong> The region of a program where an identifier (variable or function) is accessible. This can be local (within a function) or global (across the entire program).</li>
+                                <li><strong>Lifetime:</strong> The duration for which a variable exists in memory. A variable's lifetime determines when memory is allocated and deallocated for it.</li>
+                                <li><strong>Storage Classes:</strong> Keywords that define the scope, lifetime, and memory location of variables.
+                                    <ul>
+                                        <li><code>auto</code>: The default for local variables. They have local scope and their lifetime is limited to the function's execution.</li>
+                                        <li><code>static</code>: Extends a variable's lifetime to the entire program, even if its scope is local. The value is preserved between function calls.</li>
+                                        <li><code>extern</code>: Used to declare a variable that is defined in another file, extending its scope across multiple source files.</li>
+                                        <li><code>register</code>: A hint to the compiler to store the variable in a CPU register for faster access.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSolution(button) {
+            const solutionDiv = button.nextElementSibling;
+            const isVisible = solutionDiv.classList.contains('active');
+
+            // Toggle visibility
+            solutionDiv.classList.toggle('active');
+
+            // Update button text
+            button.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+        }
+    </script>
+
+</body>
+</html>
+"""
+
+display(HTML(html_content))
